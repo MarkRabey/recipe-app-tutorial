@@ -50,6 +50,11 @@ const RecipeDetailScreen: React.FC<RecipeDetailScreenProps> = ({
         <UILibText h3>{recipe.title}</UILibText>
         <UILibText>{recipe.instructions}</UILibText>
         <UILibButton
+          label="Edit Recipe"
+          onPress={() => navigation.navigate('EditRecipe', {recipeId})}
+          marginT-10
+        />
+        <UILibButton
           label="Delete Recipe"
           onPress={handleDeleteRecipe}
           marginT-20

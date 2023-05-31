@@ -57,6 +57,7 @@ const AddRecipeScreen: React.FC<AddRecipeScreenProps> = ({navigation}) => {
         label="Cancel"
         onPress={() => navigation.goBack()}
         marginT-10
+        link
       />
     </UILibView>
   );
