@@ -1,7 +1,11 @@
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React from 'react';
-import {Button, Text, View} from 'react-native';
+import {
+  Button as UILibButton,
+  Text as UILibText,
+  View as UILibView,
+} from 'react-native-ui-lib';
 import {useDispatch, useSelector} from 'react-redux';
 import {deleteRecipe} from '../features/recipeSlice';
 import {RootStackParamList} from '../navigation/AppNavigator';
@@ -23,10 +27,14 @@ const RecipeDetailScreen: React.FC<RecipeDetailScreenProps> = ({
 
   if (!recipe) {
     return (
-      <View>
-        <Text>Recipe not found</Text>
-        <Button title="Go Back" onPress={() => navigation.goBack()} />
-      </View>
+      <UILibView flex padding-20>
+        <UILibText h1>Recipe not found</UILibText>
+        <UILibButton
+          label="Go Back"
+          onPress={() => navigation.goBack()}
+          marginT-20
+        />
+      </UILibView>
     );
   }
 
@@ -36,15 +44,23 @@ const RecipeDetailScreen: React.FC<RecipeDetailScreenProps> = ({
   };
 
   return (
-    <View>
-      <Text>Recipe Detail Screen</Text>
-      <View style={{marginBottom: 10}}>
-        <Text>{recipe.title}</Text>
-        <Text>{recipe.instructions}</Text>
-        <Button title="Delete Recipe" onPress={handleDeleteRecipe} />
-      </View>
-      <Button title="Go Back" onPress={() => navigation.goBack()} />
-    </View>
+    <UILibView flex padding-20>
+      <UILibText text12>Recipe Detail Screen</UILibText>
+      <UILibView marginT-20>
+        <UILibText h3>{recipe.title}</UILibText>
+        <UILibText>{recipe.instructions}</UILibText>
+        <UILibButton
+          label="Delete Recipe"
+          onPress={handleDeleteRecipe}
+          marginT-20
+        />
+      </UILibView>
+      <UILibButton
+        label="Go Back"
+        onPress={() => navigation.goBack()}
+        marginT-20
+      />
+    </UILibView>
   );
 };
 

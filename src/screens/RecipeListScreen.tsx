@@ -1,6 +1,10 @@
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {useEffect} from 'react';
-import {Button, Text, View} from 'react-native';
+import {
+  Button as UILibButton,
+  Text as UILibText,
+  View as UILibView,
+} from 'react-native-ui-lib';
 import {useDispatch, useSelector} from 'react-redux';
 import {loadRecipes} from '../features/recipeSlice';
 import {RootStackParamList} from '../navigation/AppNavigator';
@@ -19,24 +23,25 @@ const RecipeListScreen: React.FC<RecipeListScreenProps> = ({navigation}) => {
   }, [dispatch]);
 
   return (
-    <View>
-      <Text>Recipe List Screen</Text>
+    <UILibView flex padding-20>
+      <UILibText h1>Recipe List Screen</UILibText>
       {recipes.map(recipe => (
-        <View>
-          <Text>{recipe.title}</Text>
-          <Button
-            title="View Details"
+        <UILibView key={recipe.id} marginB-10>
+          <UILibText h3>{recipe.title}</UILibText>
+          <UILibButton
+            label="View Details"
             onPress={() =>
               navigation.navigate('RecipeDetail', {recipeId: recipe.id})
             }
+            marginT-10
           />
-        </View>
+        </UILibView>
       ))}
-      <Button
-        title="Add Recipe"
+      <UILibButton
+        label="Add Recipe"
         onPress={() => navigation.navigate('AddRecipe')}
       />
-    </View>
+    </UILibView>
   );
 };
 
