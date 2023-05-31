@@ -23,7 +23,7 @@ const RecipeDetailScreen: React.FC<RecipeDetailScreenProps> = ({
   const {recipeId} = route.params;
   const recipes = useSelector((state: RootState) => state.recipe.recipes);
   const dispatch = useDispatch();
-  const recipe = recipes.find(recipe => recipe.id === recipeId);
+  const recipe = recipes.find(x => x.id === recipeId);
 
   if (!recipe) {
     return (
