@@ -1,6 +1,6 @@
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Button as UILibButton,
   Text as UILibText,
@@ -8,6 +8,7 @@ import {
   View as UILibView,
 } from 'react-native-ui-lib';
 import {useDispatch, useSelector} from 'react-redux';
+import {editRecipe} from '../features/recipeSlice';
 import {RootStackParamList} from '../navigation/AppNavigator';
 import {RootState} from '../store/rootReducer';
 
@@ -28,7 +29,38 @@ const EditRecipeScreen: React.FC<EditRecipeScreenProps> = ({
   const [title, setTitle] = useState(recipe?.title || '');
   const [instructions, setInstructions] = useState(recipe?.instructions || '');
 
-  const handleEditRecipe = () => {};
+  useEffect(() => {
+    if (recipe) {
+      setTitle(recipe.title);
+      setInstructions(recipe.instructions);
+    }
+  }, [recipe]);
+
+  const handleEditRecipe = () => {
+    if (recipe && title && instructions) {
+      dispatch(
+        editRecipe({
+          id: recipe.id,
+          title,
+          instructions,
+        }),
+      );
+      navigation.goBack();
+    }
+  };
+
+  if (!recipe) {
+    return (
+      <UILibView flex padding-20>
+        <UILibText h1>Recipe not found</UILibText>
+        <UILibButton
+          label="Go Back"
+          onPress={() => navigation.goBack()}
+          marginT-20
+        />
+      </UILibView>
+    );
+  }
 
   return (
     <UILibView flex padding-20>
